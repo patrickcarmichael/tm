@@ -318,10 +318,12 @@
     }
 
     // Initialize and load extensions
-    async function initializeLoader() {
+    function initializeLoader() {
         try {
             const loader = new ExtensionLoader();
-            await loader.loadAll();
+            loader.loadAll().catch(error => {
+                Utils.log(`Critical error in extension loader: ${error.message}`, 'error');
+            });
         } catch (error) {
             Utils.log(`Critical error in extension loader: ${error.message}`, 'error');
         }
